@@ -1,5 +1,9 @@
 {
-  "name": "kevinobruno/claude",
+  "name": "kevinobruno-claude",
+  "owner": {
+    "name": "Kevin Oliveira",
+    "email": "kevinobruno@gmail.com"
+  },
   "plugins": [
     {
       "name": "kolabs",
