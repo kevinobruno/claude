@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = process.cwd();
 const PACKAGE_JSON = path.join(ROOT, 'package.json');
 const BUILD_GRADLE = path.join(ROOT, 'android', 'app', 'build.gradle');
 const PBXPROJ = path.join(

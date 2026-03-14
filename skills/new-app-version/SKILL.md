@@ -16,8 +16,10 @@ Ask (if not already provided):
 
 ### 2. Bump version
 
+Use the base directory shown in the skill header (e.g. `Base directory for this skill: /path/to/skill`) to locate the bundled script:
+
 ```bash
-node scripts/bump-version.js <type>
+node <SKILL_BASE_DIR>/scripts/bump-version.js <type>
 ```
 
 ### 3. Commit version files
