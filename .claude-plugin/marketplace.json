@@ -1,0 +1,12 @@
+{
+  "name": "kevinobruno/claude",
+  "plugins": [
+    {
+      "name": "kolabs",
+      "source": { "source": "url", "url": "https://github.com/kevinobruno/claude.git" },
+      "description": "kevinobruno's personal Claude Code skills collection",
+      "version": "1.0.0",
+      "strict": true
+    }
+  ]
+}
