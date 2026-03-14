@@ -7,12 +7,14 @@ const path = require('path');
 const ROOT = process.cwd();
 const PACKAGE_JSON = path.join(ROOT, 'package.json');
 const BUILD_GRADLE = path.join(ROOT, 'android', 'app', 'build.gradle');
-const PBXPROJ = path.join(
-  ROOT,
-  'ios',
-  'PillsReminder.xcodeproj',
-  'project.pbxproj',
-);
+
+function findPbxproj() {
+  const iosDir = path.join(ROOT, 'ios');
+  const entries = fs.readdirSync(iosDir);
+  const xcodeproj = entries.find(e => e.endsWith('.xcodeproj'));
+  if (!xcodeproj) throw new Error('No .xcodeproj found in ios/');
+  return path.join(iosDir, xcodeproj, 'project.pbxproj');
+}
 
 /**
  * Bumps a MAJOR.MINOR version string.
@@ -84,6 +86,7 @@ function updateAndroid(newVersion, newBuildNumber) {
 }
 
 function updateIos(newVersion, newBuildNumber) {
+  const PBXPROJ = findPbxproj();
   let content = fs.readFileSync(PBXPROJ, 'utf8');
   // CURRENT_PROJECT_VERSION appears twice (Debug + Release config)
   content = content.replace(
@@ -120,7 +123,7 @@ function main() {
   console.log(`\nFiles updated:`);
   console.log(`  package.json`);
   console.log(`  android/app/build.gradle`);
-  console.log(`  ios/PillsReminder.xcodeproj/project.pbxproj`);
+  console.log(`  ${path.relative(ROOT, findPbxproj())}`);
 }
 
 main();
