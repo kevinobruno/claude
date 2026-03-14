@@ -78,7 +78,7 @@ Wait for the user's response before continuing.
 **Skip this step if the user chose `i` (iOS only) or `n` (neither).**
 
 ```bash
-cd android && ./gradlew bundleRelease
+cd android && ./gradlew bundleRelease && cd ..
 ```
 
 On success, report the AAB path:
