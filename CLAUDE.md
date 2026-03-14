@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Never use git worktrees, commit directly to main.
+
 ## Repository Purpose
 
 This is a Claude Code configuration repository containing:
