@@ -52,16 +52,20 @@ Makes this repo itself the `kolabs` plugin.
 ## What Gets Installed
 
 When a user installs `kolabs`, they get:
-- All skills under `skills/` (currently: `new-app-version`)
+- All skills under `skills/` — including sibling files alongside each `SKILL.md` (e.g., `scripts/bump-version.js` in `new-app-version`). The plugin system distributes entire skill subdirectories, not just `SKILL.md` files (confirmed by inspecting the superpowers plugin install structure).
 
-## Files Unchanged
+## Files Unchanged / Not Distributed
 
 - `settings.json` — personal Claude Code settings, not distributed via plugin
 - `statusline-command.sh` — personal statusline script, not distributed via plugin
 - `CLAUDE.md` — project instructions
 
+## Version Sync Strategy
+
+Both `marketplace.json` and `plugin.json` carry a `version` field that must match on every release. To prevent silent drift, update both files together as part of any release commit. There is no automated enforcement — the release process (e.g., via the `new-app-version` skill's bump step) should be extended to update both files simultaneously.
+
 ## Trade-offs
 
 - Self-referencing marketplace is slightly unusual but supported by the plugin system
+- `strict: true` in `marketplace.json` tells the plugin system to enforce strict version matching during install, preventing partial or mismatched installs
 - Single repo = single maintenance burden
-- Version in `marketplace.json` must be kept in sync with `plugin.json` on new releases
