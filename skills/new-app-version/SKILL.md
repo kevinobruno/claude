@@ -1,11 +1,11 @@
 ---
 name: new-app-version
-description: Use when releasing a new version of a React Native app - tagging, publishing to GitHub, and building the Android bundle.
+description: Use when releasing a new version of a React Native app - tagging, publishing to GitHub, and building Android and/or iOS bundles.
 ---
 
 # New App Version
     
-Full end-to-end release flow: version bump → tag + GitHub release → Android build.
+Full end-to-end release flow: version bump → tag + GitHub release → Android and/or iOS build.
 
 ## Steps
 
@@ -61,14 +61,56 @@ Then create the release:
 gh release create v<newVersion> --title "v<newVersion>" --notes "<generated notes>"
 ```
 
-### 6. Build Android release bundle
+### 6. Ask which platforms to build
+
+After the GitHub release is created, ask the user:
+
+> "GitHub release created. Which platforms do you want to build?
+> - **a** — Android only
+> - **i** — iOS only
+> - **b** — Both Android and iOS
+> - **n** — Neither (skip builds)"
+
+Wait for the user's response before continuing.
+
+### 7. Build Android (if selected)
+
+**Skip this step if the user chose `i` (iOS only) or `n` (neither).**
 
 ```bash
 cd android && ./gradlew bundleRelease
 ```
 
-### 7. Report AAB path
+On success, report the AAB path:
 
 ```
 android/app/build/outputs/bundle/release/app-release.aab
+```
+
+### 8. Build iOS (if selected)
+
+**Skip this step if the user chose `a` (Android only) or `n` (neither).**
+
+First, find the Xcode workspace name:
+
+```bash
+ls ios/*.xcworkspace
+```
+
+Then archive:
+
+```bash
+xcodebuild -workspace ios/<AppName>.xcworkspace \
+  -scheme <AppName> \
+  -configuration Release \
+  -archivePath ios/build/<AppName>.xcarchive \
+  archive
+```
+
+Substitute `<AppName>` with the name found in the previous command (e.g. if `ls` returns `ios/MyApp.xcworkspace`, use `MyApp`).
+
+On success, report the archive path:
+
+```
+ios/build/<AppName>.xcarchive
 ```
