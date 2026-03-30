@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "kolabs",
-      "source": { "source": "url", "url": "https://github.com/kevinobruno/claude.git" },
-      "description": "kevinobruno's personal Claude Code skills collection",
-      "version": "1.0.5",
+      "source": { "source": "url", "url": "https://github.com/kolabs-dev/claude.git" },
+      "description": "kolabs's personal Claude Code skills collection",
+      "version": "1.0.6",
       "strict": true
     }
   ]
